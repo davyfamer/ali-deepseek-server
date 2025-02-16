@@ -3,20 +3,34 @@ const bcrypt = require('bcryptjs');
 
 class User {
   static async create(username, password, email) {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const [result] = await db.execute(
-      'INSERT INTO users (username, password, email) VALUES (?, ?, ?)',
-      [username, hashedPassword, email]
-    );
-    return result.insertId;
+    console.log('Creating new user:', { username, email });
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const [result] = await db.execute(
+        'INSERT INTO users (username, password, email) VALUES (?, ?, ?)',
+        [username, hashedPassword, email]
+      );
+      console.log('User created with ID:', result.insertId);
+      return result.insertId;
+    } catch (error) {
+      console.error('Error in User.create:', error);
+      throw error;
+    }
   }
 
   static async findByUsername(username) {
-    const [rows] = await db.execute(
-      'SELECT * FROM users WHERE username = ?',
-      [username]
-    );
-    return rows[0];
+    console.log('Finding user by username:', username);
+    try {
+      const [rows] = await db.execute(
+        'SELECT * FROM users WHERE username = ?',
+        [username]
+      );
+      console.log('User found:', rows[0] ? 'Yes' : 'No');
+      return rows[0];
+    } catch (error) {
+      console.error('Error in User.findByUsername:', error);
+      throw error;
+    }
   }
 
   static async validatePassword(user, password) {
