@@ -9,4 +9,40 @@
 ## 第二步：添加数据库
 用 db/init.sql建表，建库
 
-##
+## 第三步：添加环境变量
+在根目录添加.env文件，添加阿里通义千问的api-key
+
+/*
+.env文件内容如下：
+
+###Server port
+PORT=3008
+
+###Database
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=12345678.aBc
+DB_NAME=alibabaAI
+
+###JWT Secret
+JWT_SECRET=####### 
+
+
+
+#model Name
+#MODEL_NAME=deepseek-r1 
+###所有model的列表： https://help.aliyun.com/zh/model-studio/getting-started/models?spm=a2c4g.11186623.help-menu-2400256.d_0_2.21ea7980T6Tc5N
+MODEL_NAME=deepseek-v3
+DASHSCOPE_API_KEY= #######通义千问的api-key
+*/
+
+## 第四步：安装依赖
+```bash
+npm install
+```
+
+## 第五步：启动服务
+```bash
+npm run start
+```
+
